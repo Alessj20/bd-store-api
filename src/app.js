@@ -88,19 +88,19 @@ app.post("/general-bill", async (req, res) => {
 
     const id = parseInt(ids[0].ID) + 1;
     const client = req.body.CLI_CLIENTE;
-    const sucursal = req.body.SUC_SUCURSAL;
+    const ciudad = req.body.CIU_CIUDAD;
     const pago = req.body.TPG_TIPO_PAGO;
     const total = req.body.FAG_TOTAL;
 
     const query =
-      "INSERT INTO MUE_FACTURA_GENERAL (FAG_FACTURA_GENERAL , FAG_FECHA, CLI_CLIENTE, SUC_SUCURSAL, TPG_TIPO_PAGO, FAG_TOTAL, FAG_ESTADO) VALUES (:id, TO_CHAR(SYSDATE),:cliente, :sucursal, :pago, :total, 1)";
+      "INSERT INTO MUE_FACTURA_GENERAL (FAG_FACTURA_GENERAL , FAG_FECHA, CLI_CLIENTE, CIU_CIUDAD, TPG_TIPO_PAGO, FAG_TOTAL, FAG_ESTADO) VALUES (:id, TO_CHAR(SYSDATE),:cliente, :ciudad, :pago, :total, 1)";
 
     await sequelize.query(query, {
       type: QueryTypes.INSERT,
       replacements: {
         id: id,
         cliente: client,
-        sucursal: sucursal,
+        ciudad: ciudad,
         pago: pago,
         total: total,
       },
@@ -238,8 +238,8 @@ app.post("/create-client", async (req, res) => {
     const id = parseInt(ids[0].ID) + 1;
 
     const query =
-      "INSERT INTO MUE_CLIENTE (CLI_CLIENTE, CLI_NUMERO_DOCUMENTACION, CLI_NIT, CLI_PRIMER_NOMBRE, CLI_SEGUNDO_NOMBRE, CLI_PRIMER_APELLIDO, CLI_SEGUNDO_APELLIDO, CLI_CORREO, CLI_PASSWORD, CLI_TIPO_DOCUMENTACION, CLI_NUMERO_RESIDENCIAL, CLI_NUMERO_CELULAR, CLI_PAIS, CLI_DEPARTAMENTO, CLI_CIUDAD_RESIDENCIA, CLI_DIRECCION, CLI_FECHA, CLI_ACTIVO) VALUES (:id, :dpi, :nit, :firstName, :secondName, :firstLastName, :secondLastName, :email, :password, 'DPI', :phone, :phone, :country, :state, :city, :complement, :birthday, 1)";
-
+    "INSERT INTO MUE_CLIENTE (CLI_CLIENTE, CLI_NUMERO_DOCUMENTACION, CLI_NIT, CLI_PRIMER_NOMBRE, CLI_SEGUNDO_NOMBRE, CLI_PRIMER_APELLIDO, CLI_SEGUNDO_APELLIDO, CLI_CORREO, CLI_PASSWORD, CLI_TIPO_DOCUMENTACION, CLI_NUMERO_RESIDENCIAL, CLI_NUMERO_CELULAR, CLI_PAIS, CLI_DEPARTAMENTO, CLI_CIUDAD_RESIDENCIA, CLI_DIRECCION, CLI_FECHA_NAC, CLI_ACTIVO, PRS_PROFESION ) VALUES (:id, :dpi, :nit, :firstName, :secondName, :firstLastName, :secondLastName, :email, :password, 'DPI', :phone, :phone, :country, :state, :city, :complement, :birthday, 1, 1)";
+    
     await sequelize.query(query, {
       type: QueryTypes.INSERT,
       replacements: {
